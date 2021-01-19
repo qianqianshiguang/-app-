@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import static memory.GetDumpMemory.getMem;
+import static memory.GetDumpMemory.getDumpMemory;
 
 public class Main {
     private static String devices = "621QEBPQ2CDTH";
@@ -32,7 +32,7 @@ public class Main {
 //                getFlow(flowList,devices,packageName, num);
 
                 try {
-                    getMem(ip, memList, num);
+                    getDumpMemory(ip, memList, num);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -40,7 +40,7 @@ public class Main {
                 num = num + 1;
             }
 
-        }, 0, 10000);
+        }, 0, 60000);
 
 
     }

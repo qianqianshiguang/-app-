@@ -20,7 +20,7 @@ import java.io.IOException;
 public class HttpclientToDingWebhook {
     public static void sendResponseToDingWebhook(String webhook, String text) {
         //声明client
-        CloseableHttpClient httpClient = ClientUtil.getDefaultClient();
+        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
 
         // 创建Post请求
         HttpPost httpPost = new HttpPost(webhook);

@@ -15,7 +15,7 @@ import static utils.Utils.getContainData;
  * @description: TODO
  */
 public class GetDumpMemory {
-    public static void getMem(String ip,List listinfo,int num) throws IOException {
+    public static void getDumpMemory(String ip, List listinfo, int num) throws IOException {
         //定义钉钉机器人url
         String webhook = "https://oapi.dingtalk.com/robot/send?" +
                 "access_token=b324c84816371842cfe590d243898eca1eee7a78d18212c2175db0c6fd914052";
