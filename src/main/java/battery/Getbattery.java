@@ -64,10 +64,16 @@ public class Getbattery {
             HttpclientToDingWebhook.sendResponseToDingWebhook(webhook, text);
             num = num + 1;
             //绘制折线图
-            LineChart.getLine(batteryList);
+            //  LineChart.getLine(batteryList);
+//            LineChart.LineConfig config = new LineChart.LineConfig();
+//            config.keyList.add("temperature");
+//            config.keyList.add("level");
+//            LineChart.getLine(batteryList,containList);
+            utils.LineChart.getLine(batteryList,containList);
+
 
             System.out.println("计数num：" + num);
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

@@ -4,19 +4,19 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import static flow.GetFlow.getFlow;
+import static memory.GetDumpMemory.getMem;
 
 public class Main {
     private static String devices = "621QEBPQ2CDTH";
     private static String packageName = "com.alibaba.android.rimet";
-    private static String ip = "30.40.44.71:5555";
+    private static String ip = "30.40.47.161:5555";
     private static List memList = new ArrayList();
     private static List batteryList = new ArrayList();
     private static List topList = new ArrayList();
     private static List flowList = new ArrayList();
     private static List fpsList = new ArrayList();
 
-    public static void main(String[] args) throws IOException, InterruptedException {
+    public static void main(String[] args)  {
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             int num = 0;
@@ -29,7 +29,14 @@ public class Main {
 //                getBattery(batteryList, devices, num);
 
                 //通过cat /proc/pid/net/dev获取流量使用情况
-                getFlow(flowList,devices,packageName, num);
+//                getFlow(flowList,devices,packageName, num);
+
+                try {
+                    getMem(ip, memList, num);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
                 num = num + 1;
             }
 

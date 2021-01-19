@@ -1,6 +1,7 @@
 package flow;
 
 import utils.HttpclientToDingWebhook;
+import utils.LineChart;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -88,7 +89,10 @@ public class GetFlow {
             HttpclientToDingWebhook.sendResponseToDingWebhook(webhook, text);
             num = num + 1;
             //绘制折线图
-            LineChart.getLine(flowList);
+            List<String> config = new ArrayList<String>();
+            config.add("recevice");
+            config.add("send");
+            LineChart.getLine(flowList, config);
 
             System.out.println("计数num：" + num);
         } catch (IOException e) {

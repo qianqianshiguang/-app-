@@ -1,6 +1,7 @@
-package procmeminfo;
+package memory;
 
 import utils.HttpclientToDingWebhook;
+import utils.LineChart;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,10 +11,10 @@ import static utils.Utils.getContainData;
 
 /**
  * @author: gq
- * @createtime: 2020/12/9 17:57
- * @description: 获取mem
+ * @createtime: 2021/1/19 14:35
+ * @description: TODO
  */
-public class GetMem {
+public class GetDumpMemory {
     public static void getMem(String ip,List listinfo,int num) throws IOException {
         //定义钉钉机器人url
         String webhook = "https://oapi.dingtalk.com/robot/send?" +
@@ -23,13 +24,13 @@ public class GetMem {
         Process process = Runtime.getRuntime().exec(cmd);
 
         //执行的命令
-        String command = "adb -s " + ip + " shell cat proc/meminfo";
+        String command = "adb -s " + ip + " shell dumpsys meminfo";
 
         //定义需要的关键字
         List<String> containList = new ArrayList<String>();
-        containList.add("MemFree");
-        containList.add("MemAvailable");
-        containList.add("Cached");
+        containList.add("midi");
+        containList.add("system");
+        containList.add("Free RAM");
 
         try {
             listinfo = getContainData(listinfo, command, containList);
@@ -40,7 +41,7 @@ public class GetMem {
             String text = "{\n" +
                     "     \"msgtype\": \"text\",\n" +
                     "     \"text\": {\n" +
-                    "         \"content\": \"MemFree：MemAvailable：Cached" + listinfo.get(num) + "\"\n" +
+                    "         \"content\": \"midi：system：free" + listinfo.get(num) + "\"\n" +
                     "     },\n" +
                     "     \"at\": {\n" +
                     "         \"atMobiles\": [\n" +
@@ -51,7 +52,9 @@ public class GetMem {
                     " }";
             HttpclientToDingWebhook.sendResponseToDingWebhook(webhook, text);
             num = num + 1;
-            LineChart.getLine(listinfo);
+
+            //绘制折线图
+            LineChart.getLine(listinfo, containList);
 
             System.out.println("计数num：" + num);
         } catch (IOException e) {
@@ -59,4 +62,6 @@ public class GetMem {
         }
 
     }
+
+
 }
